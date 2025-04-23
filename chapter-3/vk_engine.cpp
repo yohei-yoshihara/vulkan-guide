@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <thread>
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
