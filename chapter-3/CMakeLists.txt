@@ -19,3 +19,21 @@ add_custom_command(TARGET chapter_3 POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:chapter_3> $<TARGET_FILE_DIR:chapter_3>
   COMMAND_EXPAND_LISTS
   )
+
+include(../cmake/utils.cmake)
+
+compile_shader(gradient_color.comp)
+compile_shader(sky.comp)
+compile_shader(colored_triangle.frag)
+compile_shader(colored_triangle.vert)
+compile_shader(colored_triangle_mesh.vert)
+add_custom_target(compile_shaders_ch3 DEPENDS 
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders/gradient_color.comp.spv
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders/sky.comp.spv
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders/colored_triangle.frag.spv
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders/colored_triangle.vert.spv
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders/colored_triangle_mesh.vert.spv
+)
+add_dependencies(chapter_3 compile_shaders_ch3)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

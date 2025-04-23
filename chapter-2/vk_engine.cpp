@@ -792,12 +792,12 @@ _mainDeletionQueue.push_function([&]() {
 #else
 //> comp_pipeline_multi
 VkShaderModule gradientShader;
-if (!vkutil::load_shader_module("../../shaders/gradient_color.comp.spv", _device, &gradientShader)) {
+if (!vkutil::load_shader_module("shaders/gradient_color.comp.spv", _device, &gradientShader)) {
 	fmt::print("Error when building the compute shader \n");
 }
 
 VkShaderModule skyShader;
-if (!vkutil::load_shader_module("../../shaders/sky.comp.spv", _device, &skyShader)) {
+if (!vkutil::load_shader_module("shaders/sky.comp.spv", _device, &skyShader)) {
 	fmt::print("Error when building the compute shader \n");
 }
 

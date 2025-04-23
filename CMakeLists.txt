@@ -6,12 +6,14 @@ cmake_minimum_required (VERSION 3.8)
 project ("vulkan_guide")
 
 
-find_package(Vulkan REQUIRED)
-
+find_package(Vulkan REQUIRED COMPONENTS glslc)
 add_subdirectory(third_party)
 
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+set(GLSLC ${Vulkan_GLSLC_EXECUTABLE})
+set(GLSLC_OPTIONS -g --target-env=vulkan1.3)
+
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 
 add_subdirectory(shared)
 

@@ -15,6 +15,7 @@ std::optional<std::vector<std::shared_ptr<MeshAsset>>> loadGltfMeshes(VulkanEngi
 {
 //> openmesh
     std::cout << "Loading GLTF: " << filePath << std::endl;
+    assert(std::filesystem::exists(filePath));
 
     fastgltf::GltfDataBuffer data;
     data.loadFromFile(filePath);

@@ -239,6 +239,7 @@ bool vkutil::load_shader_module(const char* filePath,
     std::ifstream file(filePath, std::ios::ate | std::ios::binary);
 
     if (!file.is_open()) {
+        assert(false);
         return false;
     }
 

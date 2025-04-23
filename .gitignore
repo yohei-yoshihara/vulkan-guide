@@ -1,3 +1,7 @@
-/build
-/bin
+build/
+bin/
+out/
 /assets/brickadia
+.vs/
+.DS_Store
+*.log

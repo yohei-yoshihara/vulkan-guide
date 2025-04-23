@@ -11,6 +11,7 @@
 #include <array>
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -100,7 +101,12 @@ void VulkanEngine::init_default_data() {
 	});
 
 //< init_data
-	testMeshes = loadGltfMeshes(this,"..\\..\\assets\\basicmesh.glb").value();
+	std::cout << std::filesystem::current_path() << std::endl;
+	auto ret = loadGltfMeshes(this, "assets/basicmesh.glb");
+	if (!ret.has_value()) {
+		assert(false);
+	}
+	testMeshes = ret.value();
 }
 
 void VulkanEngine::cleanup()
@@ -758,12 +764,12 @@ void VulkanEngine::init_background_pipelines()
 	VK_CHECK(vkCreatePipelineLayout(_device, &computeLayout, nullptr, &_gradientPipelineLayout));
 		
 	VkShaderModule gradientShader;
-	if (!vkutil::load_shader_module("../../shaders/gradient_color.comp.spv", _device, &gradientShader)) {
+	if (!vkutil::load_shader_module("shaders/gradient_color.comp.spv", _device, &gradientShader)) {
 		std::cout << "Error when building the compute shader" << std::endl;
 	}
 
 	VkShaderModule skyShader;
-	if (!vkutil::load_shader_module("../../shaders/sky.comp.spv", _device, &skyShader)) {
+	if (!vkutil::load_shader_module("shaders/sky.comp.spv", _device, &skyShader)) {
 		std::cout << "Error when building the compute shader" << std::endl;
 	}
 
@@ -879,7 +885,7 @@ void VulkanEngine::init_triangle_pipeline()
 {
 //> triangle_shaders
 	VkShaderModule triangleFragShader;
-	if (!vkutil::load_shader_module("../../shaders/colored_triangle.frag.spv", _device, &triangleFragShader)) {
+	if (!vkutil::load_shader_module("shaders/colored_triangle.frag.spv", _device, &triangleFragShader)) {
 		fmt::print("Error when building the triangle fragment shader module");
 	}
 	else {
@@ -887,7 +893,7 @@ void VulkanEngine::init_triangle_pipeline()
 	}
 
 	VkShaderModule triangleVertexShader;
-	if (!vkutil::load_shader_module("../../shaders/colored_triangle.vert.spv", _device, &triangleVertexShader)) {
+	if (!vkutil::load_shader_module("shaders/colored_triangle.vert.spv", _device, &triangleVertexShader)) {
 		fmt::print("Error when building the triangle vertex shader module");
 	}
 	else {
@@ -983,7 +989,7 @@ void VulkanEngine::init_mesh_pipeline()
 {
 //> rectangle_shaders
 	VkShaderModule triangleFragShader;
-	if (!vkutil::load_shader_module("../../shaders/colored_triangle.frag.spv", _device, &triangleFragShader)) {
+	if (!vkutil::load_shader_module("shaders/colored_triangle.frag.spv", _device, &triangleFragShader)) {
 		fmt::print("Error when building the triangle fragment shader module");
 	}
 	else {
@@ -991,7 +997,7 @@ void VulkanEngine::init_mesh_pipeline()
 	}
 
 	VkShaderModule triangleVertexShader;
-	if (!vkutil::load_shader_module("../../shaders/colored_triangle_mesh.vert.spv", _device, &triangleVertexShader)) {
+	if (!vkutil::load_shader_module("shaders/colored_triangle_mesh.vert.spv", _device, &triangleVertexShader)) {
 		fmt::print("Error when building the triangle vertex shader module");
 	}
 	else {
