@@ -15,10 +15,12 @@ target_include_directories(chapter_3 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
 target_link_libraries(chapter_3 vkguide_shared vkbootstrap imgui fastgltf::fastgltf)
 
-add_custom_command(TARGET chapter_3 POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:chapter_3> $<TARGET_FILE_DIR:chapter_3>
-   COMMAND_EXPAND_LISTS
-   )
+if ($<TARGET_RUNTIME_DLLS:chapter_3>)
+  add_custom_command(TARGET chapter_3 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:chapter_3> $<TARGET_FILE_DIR:chapter_3>
+    COMMAND_EXPAND_LISTS
+    )
+endif()
 
 include(../cmake/utils.cmake)
 
