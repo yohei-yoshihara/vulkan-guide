@@ -21,3 +21,8 @@ add_custom_target(compile_shaders_ch2 DEPENDS
     ${CMAKE_CURRENT_BINARY_DIR}/shaders/sky.comp.spv)
 
 add_dependencies(chapter_2 compile_shaders_ch2)
+
+add_custom_command(TARGET chapter_2 POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:chapter_2> $<TARGET_FILE_DIR:chapter_2>
+   COMMAND_EXPAND_LISTS
+   )
